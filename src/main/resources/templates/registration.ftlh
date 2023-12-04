@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<h3>Регистрация</h3>
+<form th:action="@{/registration}" method="post">
+    Имя пользователя: <input type="text" name="name"><br><br>
+    Эл. почта: <input type="email" name="username"><br><br>
+    Пароль: <input type="password" name="password"><br><br>
+<!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}}">-->
+    <input type="submit" value="Зарегистрироваться">
+</form>
+<h2 style="color: red" th:if="${errorMessage}!=null" th:value="${errorMessage}"></h2>
+</body>
+</html>

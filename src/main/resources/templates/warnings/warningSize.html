@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка</title>
+</head>
+<body>
+<h1>Размер файла должен быть не более 1Мб</h1>
+<form th:action="'/product/'+${id.get(0)}+'/update'" method="get">
+<input type="submit" value="Вернуться">
+</form>
+</body>
+</html>

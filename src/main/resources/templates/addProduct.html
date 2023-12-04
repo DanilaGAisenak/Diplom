@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Добавление товара</title>
+</head>
+<body>
+<h3>Добавить товар</h3>
+<form action="/product/create" method="post" enctype="multipart/form-data">
+    Название: <input type="text" name="name"><br><br>
+    Категория: <input type="text" name="category"><br><br>
+    Цена: <input type="number" step="any" name="price"><br><br>
+    Фото 1: <input type="file" name="file1"><br><br>
+    Фото 2: <input type="file" name="file2"><br><br>
+    Фото 3: <input type="file" name="file3"><br><br>
+    Налог: <input type="number" name="tax"><br><br>
+    Себестоимость: <input type="number" step="any" name="production_price"><br><br>
+    Склад: <input type="number" name="warehouse"><br><br>
+    Пользователь: <input type="number" name="user"><br><br>
+    <input type="submit" value="Добавить товар">
+</form>
+</body>
+</html>

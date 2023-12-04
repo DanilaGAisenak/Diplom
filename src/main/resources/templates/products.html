@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaef.org">
+<head>
+    <title>Товары</title>
+</head>
+<body>
+<h1><a href="/login">Войти</a></h1>
+<form action="/logout" method="post">
+    <input type="submit" value="Выйти">
+</form>
+<form action="/" method="get">
+    <label for="title">Поиск по названию</label>
+    <input type="text" name="name" id="title"><br>
+    <input type="submit" value="Поиск">
+</form>
+<table style="width: 100%; text-align: center;">
+    <tr>
+        <th>Название</th>
+        <th>Категория</th>
+        <th>Цена</th>
+        <th>Склад</th>
+        <th>Дополнительно</th>
+    </tr>
+    <tr th:each="pr : ${products}">
+        <td th:text="${pr.name}"></td>
+        <td th:text="${pr.category}"></td>
+        <td th:text="${pr.price}"></td>
+        <td th:text="${pr.warehouse}"></td>
+        <td th:utext="@{<a href='/product/}+${pr.getProduct_id()}+@{'>Подробнее..</a>}"></td>
+    </tr>
+</table>
+
+<hr>
+<button onclick="location.href='/product/add'">Добавить товар</button>
+
+</body>
+</html>

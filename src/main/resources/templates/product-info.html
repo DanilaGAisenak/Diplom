@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaef.org">
+<head>
+    <title>Подробная информация о товаре</title>
+</head>
+<body>
+<b th:utext="'Название товара: '+${product.name}"></b><br>
+<b th:utext="'Категория: '+${product.category}"></b><br>
+<b th:utext="'Цена: '+${product.price}"></b><br>
+<b th:utext="'Ставка НДС: '+${product.tax}"></b><br>
+<b th:utext="'Себестоимость: '+${product.production_price}"></b><br>
+<b th:utext="'На складе: '+${product.warehouse}"></b><br>
+<b th:utext="'Собственник: '+${product.user}"></b><br>
+<img  th:each="im : ${images}" th:if="${im.getId()}!= null" th:src="'/images/'+ ${im.getId()} " height="120px"/>
+<form th:action="'/product/delete/'+${product.product_id}" method="post">
+        <input type="submit" value="Удалить товар">
+</form>
+<form th:action="'/product/'+${product.product_id}+'/update'" method="get">
+    <input type="submit" value="Редактировать">
+</form>
+</body>
+</html>
