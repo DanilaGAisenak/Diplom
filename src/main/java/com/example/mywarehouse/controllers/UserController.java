@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.Set;
@@ -38,7 +41,29 @@ public class UserController {
         return "hello";
     }
 
+    @GetMapping("/user/profile/{id}")
+    public String profile(@PathVariable("id")Integer id, Model model){
+        User user = userRepository.findByUserId(id);
+        model.addAttribute("user", user);
+        return "profile";
+    }
+    @GetMapping("/user/profile/{id}/smth")
+    public String profileF(@PathVariable("id")Integer id, Model model){
+        User user = userRepository.findByUserId(id);
+        model.addAttribute("user", user);
+        model.addAttribute("avatar",user.getAvatar());
+        return "profile-upd";
+    }
 
+
+
+    @PostMapping("/user/profile/{id}")
+    public String prof(@PathVariable("id")Integer id, @RequestParam String username, @RequestParam String name,
+                       @RequestParam MultipartFile file) throws IOException {
+        User user = userRepository.findByUserId(id);
+        userService.updateU(user,username,name,file);
+        return "redirect:/";
+    }
     @PostMapping("/")
     public String hi(Principal principal, Model model){
         model.addAttribute("user",userService.getUserByPrincipal(principal));

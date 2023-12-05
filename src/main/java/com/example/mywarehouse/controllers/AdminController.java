@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Controller
@@ -22,7 +25,7 @@ public class AdminController {
     @GetMapping("/admin")
     public String admin(Model model){
         model.addAttribute("users", userService.allUsers());
-        return "admin";
+        return "usersMenu";
     }
 
     @GetMapping("/user/update/{user}")
@@ -35,9 +38,9 @@ public class AdminController {
 
     @PostMapping("/user/update/{id}")
     public String saveUser(@PathVariable("id") Integer id, @RequestParam String username, @RequestParam String name,
-                           @RequestParam String[] role){
+                           @RequestParam String[] role, @RequestParam MultipartFile file) throws IOException {
         User user = userRepository.findByUserId(id);
-        userService.updateUser(user,username, name, role);
+        userService.updateUser(user,username, name, role, file);
         return "redirect:/admin";
     }
 

@@ -1,5 +1,6 @@
 package com.example.mywarehouse.services.impl;
 
+import com.example.mywarehouse.models.Image;
 import com.example.mywarehouse.models.User;
 import com.example.mywarehouse.models.enums.Role;
 import com.example.mywarehouse.repositories.UserRepository;
@@ -7,7 +8,9 @@ import com.example.mywarehouse.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
@@ -35,22 +38,32 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    public void updateUser(User user, String username, String name, String[] role) {
+    public void updateUser(User user, String username, String name, String[] role, MultipartFile img1) throws IOException {
+        Image img;
+        if (img1.getSize()!=0){
+            img = toImageEntity(img1);
+            img.setPreviewImage(true);
+            user.setAvatar(img);
+        }
         user.setUsername(username);
         user.setName(name);
         user.getRoles().clear();
         for (String rl : role){
             user.getRoles().add(Role.valueOf(rl));
         }
-//        Set<String> roles = Arrays.stream(Role.values())
-//                .map(Role::name)
-//                .collect(Collectors.toSet());
-//        user.getRoles().clear();
-//        for (String rl : role) {
-//            if (roles.contains(rl)){
-//                user.getRoles().add(Role.valueOf(rl));
-//            }
-//        }
+
+        userRepository.save(user);
+    }
+
+    public void updateU(User user, String username, String name, MultipartFile img1) throws IOException {
+        Image img;
+        if (img1.getSize()!=0){
+            img = toImageEntity(img1);
+            img.setPreviewImage(true);
+            user.setAvatar(img);
+        }
+        user.setUsername(username);
+        user.setName(name);
         userRepository.save(user);
     }
 
@@ -66,5 +79,18 @@ public class UserServiceImpl implements UserService {
             else user.setActive(false);
         }
         userRepository.save(user);
+    }
+
+    private Image toImageEntity(MultipartFile file) throws IOException {
+        Image image = new Image();
+        String name = file.getName();
+        StringBuilder res = new StringBuilder();
+        for (int i=0;i<name.length();i++) res.append(name.charAt(i));
+        image.setName(res.toString());
+        image.setOriginalFileName(file.getOriginalFilename());
+        image.setContentType(file.getContentType());
+        image.setSize(file.getSize());
+        image.setBytes(file.getBytes());
+        return image;
     }
 }

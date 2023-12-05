@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение профиля</title>
+</head>
+<body>
+<img th:src="${user.getAvatar()}"><br>
+<form th:action="'/user/profile/'+${user.userId}" method="post" enctype="multipart/form-data">
+  <img th:src="${avatar}"> <input type="file" name="file">
+  Логин: <input type="email" name="username" th:value="${user.username}">
+  Имя: <input type="text" name="name" th:value="${user.name}">
+  <input type="hidden" th:value="${user.userId}">
+  <input type="submit" value="Сохранить">
+</form>
+<a th:href="'/user/profile/'+${user.userId}">Назад</a>
+</body>
+</html>

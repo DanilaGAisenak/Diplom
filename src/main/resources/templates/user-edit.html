@@ -6,7 +6,8 @@
 </head>
 <body>
 <img th:src="${user.getAvatar()}"><br>
-<form th:action="'/user/update/'+${user.userId}" method="post">
+<form th:action="'/user/update/'+${user.userId}" method="post" enctype="multipart/form-data">
+    <img th:src="${user.getImages().getId()}"> <input type="file" name="file">
     Логин: <input type="email" name="username" th:value="${user.username}">
     Имя: <input type="text" name="name" th:value="${user.name}">
     <input type="radio" name="role" id="role1" value="ROLE_USER" th:checked="${user.isUser()==true}">

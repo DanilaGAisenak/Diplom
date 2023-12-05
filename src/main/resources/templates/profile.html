@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+</head>
+<body>
+<div>
+  <p th:text="'id: '+${user.getUserId()}"></p><br>
+  <img th:src="${user.getAvatar()}"><br>
+  <p th:text="'Логин: '+${user.username}"></p><br>
+  <p th:text="'Имя: '+${user.name}"></p><br>
+  <p th:text="'Активный: '+${user.active}"></p><br>
+  <form th:action="'/user/profile/'+${user.userId}+'/smth'" method="get">
+    <input type="submit" value="Редактировать">
+  </form>
+  <a href="/">Назад</a>
+</div>
+</body>
+</html>
