@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -23,10 +25,22 @@ public class UserController {
         return "registration";
     }
 
-    @GetMapping("/hello")
-    public String securityUrl(){
+    @GetMapping("/")
+    public String securityUrl(Principal principal, Model model){
+        model.addAttribute("user",userService.getUserByPrincipal(principal));
         return "hello";
     }
+
+    @PostMapping("/")
+    public String hi(Principal principal, Model model){
+        model.addAttribute("user",userService.getUserByPrincipal(principal));
+        return "hello";
+    }
+
+//    @PostMapping("/login")
+//    public String log(){
+//        return "redirect:/";
+//    }
 
     @PostMapping("/registration")
     public String CreateUser(User user, Model model){

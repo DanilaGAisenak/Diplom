@@ -10,7 +10,7 @@
 <b th:utext="'Ставка НДС: '+${product.tax}"></b><br>
 <b th:utext="'Себестоимость: '+${product.production_price}"></b><br>
 <b th:utext="'На складе: '+${product.warehouse}"></b><br>
-<b th:utext="'Собственник: '+${product.user}"></b><br>
+<b th:utext="'Собственник: '+${product.user.username}"></b><br>
 <img  th:each="im : ${images}" th:if="${im.getId()}!= null" th:src="'/images/'+ ${im.getId()} " height="120px"/>
 <form th:action="'/product/delete/'+${product.product_id}" method="post">
         <input type="submit" value="Удалить товар">

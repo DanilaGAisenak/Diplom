@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
 <head>
     <meta charset="UTF-8">
     <title>Hello</title>
 </head>
 <body>
 <h1>Hello</h1>
+<h1 th:if="${user.username}==null"><a href="/login">Войти</a></h1>
+<h3 th:if="${user.username}!=null" th:text="'Имя пользователя: '+${user.name}"></h3>
+<div th:if="${user.username}!=null">
+    <form  action="/logout" method="post">
+        <input type="submit" value="Выйти">
+    </form>
+</div>
+<button th:if="${user.username}!=null" onclick="location.href='/products'">Товары</button>
 </body>
 </html>

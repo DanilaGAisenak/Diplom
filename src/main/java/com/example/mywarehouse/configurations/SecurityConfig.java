@@ -26,7 +26,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/","/registration")
                 .permitAll().anyRequest().authenticated())
-                .formLogin((form)->form.loginPage("/login").permitAll()).logout((logout)->logout.permitAll());
+                .formLogin((form)->form.loginPage("/login").permitAll().successForwardUrl("/"))
+                .logout((logout)->logout.permitAll().logoutSuccessUrl("/"));
         return http.build();
     }
 

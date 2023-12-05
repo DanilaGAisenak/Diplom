@@ -33,8 +33,9 @@ public class Product {
     private Float production_price;
     @Column(name = "warehouse")
     private Integer warehouse;
-    @Column(name="user")
-    private Integer user;
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
     private LocalDateTime dateOfCreate;
