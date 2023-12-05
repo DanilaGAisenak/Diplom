@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о пользователе</title>
+</head>
+<body>
+<img th:src="${user.getAvatar()}"><br>
+<form th:action="'/user/update/'+${user.userId}" method="post">
+    Логин: <input type="email" name="username" th:value="${user.username}">
+    Имя: <input type="text" name="name" th:value="${user.name}">
+    <input type="radio" name="role" id="role1" value="ROLE_USER" th:checked="${user.isUser()==true}">
+    <label for="role1">User</label>
+    <input type="radio" name="role" id="role2" value="ROLE_ADMIN" th:checked="${user.isUser()==false}">
+    <label for="role2">Admin</label>
+    <input type="hidden" th:value="${user.userId}">
+    <input type="submit" value="Сохранить">
+</form>
+<button onclick="location.href='/admin'">Вернуться</button>
+</body>
+</html>

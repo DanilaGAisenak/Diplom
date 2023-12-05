@@ -14,5 +14,6 @@
     </form>
 </div>
 <button th:if="${user.username}!=null" onclick="location.href='/products'">Товары</button>
+<button th:if="${user.username}!=null" onclick="location.href='/admin'">Меню Администратора</button>
 </body>
 </html>

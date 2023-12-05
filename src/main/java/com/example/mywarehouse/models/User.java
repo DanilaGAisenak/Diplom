@@ -36,6 +36,11 @@ public class User implements UserDetails {
     private List<Product> products = new ArrayList<>();
     private LocalDateTime dateOfCreation;
 
+    public boolean isUser(){
+        if (getRoles().contains(Role.valueOf("ROLE_USER"))) return true;
+        else return false;
+    }
+
     @PrePersist
     private void init(){
         dateOfCreation = LocalDateTime.now();

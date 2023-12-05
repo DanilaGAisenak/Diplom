@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Меню администратора</title>
+</head>
+<body>
+<div th:each="us : ${users}">
+        <p th:text="'id: '+${us.userId}"></p><br>
+        <img th:src="${us.getAvatar()}"><br>
+        <p th:text="'Логин: '+${us.username}"></p><br>
+        <p th:text="'Имя: '+${us.name}"></p><br>
+        <p th:text="'Роль: '+${us.roles.toString()}"></p><br>
+        <p th:text="'Активный: '+${us.active}"></p><br>
+        <form th:action="'/user/ban/'+${us.userId}" method="post">
+            <input type="submit" value="Бан">
+        </form>
+        <form th:action="'/user/update/'+${us.userId}" method="get">
+            <input type="submit" value="Редактировать">
+        </form>
+    <form th:action="'/user/delete/'+${us.userId}" method="post">
+        <input type="submit" value="Удалить">
+    </form>
+</div>
+</body>
+</html>
