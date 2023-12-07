@@ -3,6 +3,8 @@ package com.example.mywarehouse.models;
 import com.example.mywarehouse.models.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,7 +13,9 @@ import java.util.*;
 
 @Entity
 @Table(name = "user")
-@Data
+//@Data
+@Getter
+@Setter
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +42,9 @@ public class User implements UserDetails {
     private List<Company> companies = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Warehouse> warehouses = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personId", referencedColumnName = "personId")
+    private Person person;
     private LocalDateTime dateOfCreation;
 
     public boolean isUser(){

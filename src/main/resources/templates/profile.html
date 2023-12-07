@@ -6,15 +6,19 @@
 </head>
 <body>
 <div>
-  <p th:text="'id: '+${user.getUserId()}"></p><br>
-<!--  <img th:src="${user.getAvatar().getId()}"><br>-->
-  <p th:text="'Логин: '+${user.username}"></p><br>
-  <p th:text="'Имя: '+${user.name}"></p><br>
-  <p th:text="'Активный: '+${user.active}"></p><br>
-  <form th:action="'/user/profile/'+${user.userId}+'/smth'" method="get">
-    <input type="submit" value="Редактировать">
-  </form>
-  <a href="/">Назад</a>
+    <p th:text="'id: '+${user.getUserId()}"></p><br>
+    <!--  <img th:src="${user.getAvatar().getId()}"><br>-->
+    <p th:text="'Логин: '+${user.username}"></p><br>
+    <p th:text="'Имя: '+${user.name}"></p><br>
+    <p th:text="'Активный: '+${user.active}"></p><br>
+    <form th:action="'/user/profile/'+${user.userId}+'/smth'" method="get">
+        <input type="submit" value="Редактировать">
+    </form>
+    <form action="/person" method="get">
+        <input type="submit" value="Личные данные">
+    </form>
 </div>
+<br>
+<a href="/">Назад</a>
 </body>
 </html>

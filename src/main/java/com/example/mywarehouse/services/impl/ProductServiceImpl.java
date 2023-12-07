@@ -5,6 +5,7 @@ import com.example.mywarehouse.models.Product;
 import com.example.mywarehouse.models.User;
 import com.example.mywarehouse.models.Warehouse;
 import com.example.mywarehouse.repositories.UserRepository;
+import com.example.mywarehouse.repositories.WarehouseRepository;
 import com.example.mywarehouse.repositories.productRepository;
 import com.example.mywarehouse.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private final productRepository productRepository;
     private final UserRepository userRepository;
+    private final WarehouseRepository warehouseRepository;
     @Override
     public List<Product> listProducts(String name, Principal principal){
         if (name != null) return productRepository.findByName(name);
@@ -29,8 +31,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void saveProduct(Principal principal, Product product, MultipartFile image1, MultipartFile image2, MultipartFile image3) throws IOException {
+    public void saveProduct(Principal principal, Product product,
+                            MultipartFile image1, MultipartFile image2,
+                            MultipartFile image3, String whName) throws IOException {
         product.setUser(getUserByPrincipal(principal));
+        Warehouse wh = warehouseRepository.findWarehouseByName(whName);
+        product.setWarehouse(wh);
         Image img1;
         Image img2;
         Image img3;
@@ -80,7 +86,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateProduct(Integer id, String name, String category, Float price, Integer img_link,
                               Integer tax, Float production_price, Warehouse warehouse, /*Integer user,*/
-                              MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
+                              MultipartFile file1, MultipartFile file2, MultipartFile file3,
+                              User user) throws IOException {
         Optional<Product> product = productRepository.findById(id);
         if (!(product.get()==null)){
             product.get().setName(name);
@@ -91,7 +98,7 @@ public class ProductServiceImpl implements ProductService {
             product.get().setTax(tax);
             product.get().setProduction_price(production_price);
             product.get().setWarehouse(warehouse);
-            //product.get().setUser(user);
+            product.get().setUser(user);
             Image img1;
             Image img2;
             Image img3;

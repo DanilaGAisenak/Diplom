@@ -38,9 +38,9 @@ public class AdminController {
 
     @PostMapping("/user/update/{id}")
     public String saveUser(@PathVariable("id") Integer id, @RequestParam String username, @RequestParam String name,
-                           @RequestParam String[] role, @RequestParam MultipartFile file) throws IOException {
+                           @RequestParam String[] role /*@RequestParam MultipartFile file*/) throws IOException {
         User user = userRepository.findByUserId(id);
-        userService.updateUser(user,username, name, role, file);
+        userService.updateUser(user,username, name, role);
         return "redirect:/admin";
     }
 

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование</title>
+</head>
+<body>
+<h3>Редактирование личной информации</h3>
+<form th:action="'/person/add'" method="post">
+    Имя: <input type="text" name="name" th:value="${person.name}" required>
+    Фамилия: <input type="text" name="surname" th:value="${person.surname}" required>
+    Возраст: <input type="number" min="18" max="99" th:value="${person.age}" name="age" required>
+    <input type="submit" value="Сохранить">
+</form>
+<button onclick="location.href='/person'">Назад</button>
+</body>
+</html>

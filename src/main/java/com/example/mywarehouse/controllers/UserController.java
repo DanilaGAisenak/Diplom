@@ -58,10 +58,10 @@ public class UserController {
 
 
     @PostMapping("/user/profile/{id}")
-    public String prof(@PathVariable("id")Integer id, @RequestParam String username, @RequestParam String name,
-                       @RequestParam MultipartFile file) throws IOException {
+    public String prof(@PathVariable("id")Integer id, @RequestParam String username, @RequestParam String name
+                       /*@RequestParam MultipartFile file*/) throws IOException {
         User user = userRepository.findByUserId(id);
-        userService.updateU(user,username,name,file);
+        userService.updateU(user,username,name);
         return "redirect:/";
     }
     @PostMapping("/")

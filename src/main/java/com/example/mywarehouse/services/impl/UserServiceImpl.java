@@ -38,13 +38,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    public void updateUser(User user, String username, String name, String[] role, MultipartFile img1) throws IOException {
-        Image img;
-        if (img1.getSize()!=0){
-            img = toImageEntity(img1);
-            img.setPreviewImage(true);
-            //user.setAvatar(img);
-        }
+    public void updateUser(User user, String username, String name, String[] role) throws IOException {
+//        Image img;
+//        if (img1.getSize()!=0){
+//            img = toImageEntity(img1);
+//            img.setPreviewImage(true);
+//            //user.setAvatar(img);
+//        }
         user.setUsername(username);
         user.setName(name);
         user.getRoles().clear();
@@ -55,13 +55,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    public void updateU(User user, String username, String name, MultipartFile img1) throws IOException {
-        Image img;
+    public void updateU(User user, String username, String name/*, MultipartFile img1*/) throws IOException {
+        /*Image img;
         if (img1.getSize()!=0){
             img = toImageEntity(img1);
             img.setPreviewImage(true);
             //user.setAvatar(img);
-        }
+        }*/
         user.setUsername(username);
         user.setName(name);
         userRepository.save(user);

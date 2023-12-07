@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Личные данные</title>
+</head>
+<body>
+<h3>Личные данные</h3>
+<div th:each="pr : ${person}">
+<input type="text" th:value="${pr.name}" readonly><br>
+<input type="text" th:value="${pr.surname}" readonly><br>
+<input type="number" th:value="${pr.age}" readonly><br>
+    <a th:href="'/person/update/'+${pr.personId}">Редактировать</a><br>
+    <a th:href="'/person/delete/'+${pr.personId}">Очистить личные данные</a>
+</div>
+<button th:if="${person.isEmpty()}" onclick="location.href='/person/add'">Добавить личные данные</button>
+<a th:href="'/user/profile/'+${user.userId}">Назад</a>
+</body>
+</html>
