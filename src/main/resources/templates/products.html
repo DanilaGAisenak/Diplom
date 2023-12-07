@@ -23,7 +23,7 @@
         <td th:text="${pr.name}"></td>
         <td th:text="${pr.category}"></td>
         <td th:text="${pr.price}"></td>
-        <td th:text="${pr.warehouse}"></td>
+        <td th:text="${pr.warehouse.GetName()}"></td>
         <td th:utext="@{<a href='/product/}+${pr.getProduct_id()}+@{'>Подробнее..</a>}"></td>
     </tr>
 </table>

@@ -23,9 +23,9 @@ public class User implements UserDetails {
     private String name;
     @Column(name = "active")
     private boolean active;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "image_id")
-    private Image avatar;
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "image_id")
+//    private Image avatar;
     @Column(name="password", length = 1000)
     private String password;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -34,6 +34,10 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Product> products = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "user")
+    private List<Company> companies = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Warehouse> warehouses = new ArrayList<>();
     private LocalDateTime dateOfCreation;
 
     public boolean isUser(){

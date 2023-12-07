@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Компании</title>
+</head>
+<body>
+<form action="/companies" method="get">
+    <input type="text" name="name" placeholder="Введите название">
+    <input type="submit" value="Поиск">
+</form>
+<div th:each="com : ${companies}">
+    <input type="text" th:value="'id: '+${com.id}" readonly>
+    <p th:text="'id: '+${com.id}"></p>
+    <p th:text="'Название: '+${com.name}"></p>
+    <p th:text="'Адрес: '+${com.address}"></p>
+    <a th:href="'/company/'+${com.id}+'/update'">Редактировать</a>
+    <a th:href="'/company/delete/'+${com.id}">Удалить</a>
+</div>
+<button onclick="location.href='/company/add'">Добавить компанию</button>
+<button onclick="location.href='/'">Вернуться</button>
+</body>
+</html>

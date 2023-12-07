@@ -31,13 +31,14 @@ public class Product {
     private Integer tax;
     @Column(name="production_price")
     private Float production_price;
-    @Column(name = "warehouse")
-    private Integer warehouse;
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn
     private User user;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn
+    private Warehouse warehouse;
     private LocalDateTime dateOfCreate;
 
     @PrePersist

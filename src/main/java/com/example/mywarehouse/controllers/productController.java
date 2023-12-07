@@ -2,6 +2,7 @@ package com.example.mywarehouse.controllers;
 
 import com.example.mywarehouse.models.Image;
 import com.example.mywarehouse.models.Product;
+import com.example.mywarehouse.models.Warehouse;
 import com.example.mywarehouse.services.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -61,7 +62,7 @@ public class productController {
     @PostMapping("/product/{id}/updateS")
     public String updated(@PathVariable Integer id, @RequestParam String name, @RequestParam String category,
                           @RequestParam Float price, @RequestParam Integer img_link, @RequestParam Integer tax,
-                          @RequestParam Float production_price, @RequestParam Integer warehouse, /*@RequestParam Integer user,*/
+                          @RequestParam Float production_price, @RequestParam Warehouse warehouse, /*@RequestParam Integer user,*/
                           @RequestParam MultipartFile file1, @RequestParam MultipartFile file2, @RequestParam MultipartFile file3) throws IOException {
         if (file1.getSize() <= (1024*1024)){
             if (file2.getSize() <= (1024*1024)){

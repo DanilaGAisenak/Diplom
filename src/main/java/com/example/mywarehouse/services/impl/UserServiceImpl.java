@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         if (img1.getSize()!=0){
             img = toImageEntity(img1);
             img.setPreviewImage(true);
-            user.setAvatar(img);
+            //user.setAvatar(img);
         }
         user.setUsername(username);
         user.setName(name);
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         if (img1.getSize()!=0){
             img = toImageEntity(img1);
             img.setPreviewImage(true);
-            user.setAvatar(img);
+            //user.setAvatar(img);
         }
         user.setUsername(username);
         user.setName(name);

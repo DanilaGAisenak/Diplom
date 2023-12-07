@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование компании</title>
+</head>
+<body>
+<h3>Редактирование компании</h3>
+<form th:action="'/company/'+${company.id}+'/update'" method="post">
+  <input type="text" name="name" th:value="${company.name}" required>
+  <input type="text" name="address" th:value="${company.address}" required>
+  <input type="submit" value="Редактировать">
+</form>
+</body>
+</html>

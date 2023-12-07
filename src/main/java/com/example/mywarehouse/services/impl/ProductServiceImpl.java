@@ -3,6 +3,7 @@ package com.example.mywarehouse.services.impl;
 import com.example.mywarehouse.models.Image;
 import com.example.mywarehouse.models.Product;
 import com.example.mywarehouse.models.User;
+import com.example.mywarehouse.models.Warehouse;
 import com.example.mywarehouse.repositories.UserRepository;
 import com.example.mywarehouse.repositories.productRepository;
 import com.example.mywarehouse.services.ProductService;
@@ -78,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProduct(Integer id, String name, String category, Float price, Integer img_link,
-                              Integer tax, Float production_price, Integer warehouse, /*Integer user,*/
+                              Integer tax, Float production_price, Warehouse warehouse, /*Integer user,*/
                               MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
         Optional<Product> product = productRepository.findById(id);
         if (!(product.get()==null)){

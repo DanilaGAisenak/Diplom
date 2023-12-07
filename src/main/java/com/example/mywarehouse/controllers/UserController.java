@@ -42,16 +42,16 @@ public class UserController {
     }
 
     @GetMapping("/user/profile/{id}")
-    public String profile(@PathVariable("id")Integer id, Model model){
+    public String profile(@PathVariable("id")Integer id, Principal principal, Model model){
         User user = userRepository.findByUserId(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         return "profile";
     }
     @GetMapping("/user/profile/{id}/smth")
     public String profileF(@PathVariable("id")Integer id, Model model){
         User user = userRepository.findByUserId(id);
         model.addAttribute("user", user);
-        model.addAttribute("avatar",user.getAvatar());
+        //model.addAttribute("avatar",user.getAvatar());
         return "profile-upd";
     }
 
