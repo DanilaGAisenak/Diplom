@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование склада</title>
+</head>
+<body>
+<h3>Добавить склад</h3>
+<form th:action="'/warehouses/'+${wh.warehouseId}+'/update'" method="post">
+  Компания:<select th:each="com : ${companies}" name="comName" required>
+  <option  th:value="${com.getName()}" th:text="${com.getName()}"></option>
+</select><br>
+  Название: <input type="text" name="name" th:value="${wh.name}" required><br>
+  Адрес: <input type="text" name="address" th:value="${wh.address}" required><br>
+  Тип: <input type="text" name="type" th:value="${wh.type}" required><br>
+  <input type="submit" value="Сохранить">
+</form>
+<button onclick="location.href='/warehouses'">Вернуться</button>
+</body>
+</html>

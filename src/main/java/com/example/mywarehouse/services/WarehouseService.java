@@ -12,6 +12,6 @@ public interface WarehouseService {
     User getUserByPrincipal(Principal principal);
     void saveWarehouse(Warehouse warehouse, Company company, Principal principal);
     void deleteWarehouse(Integer id);
-    void updateWarehouse(Integer id, String name, String address, String type);
+    void updateWarehouse(Integer id, String name, String address, String type, String comName);
     Warehouse getWarehouseById(Integer id);
 }

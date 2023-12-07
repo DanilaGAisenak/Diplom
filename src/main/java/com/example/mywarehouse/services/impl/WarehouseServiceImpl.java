@@ -3,6 +3,7 @@ package com.example.mywarehouse.services.impl;
 import com.example.mywarehouse.models.Company;
 import com.example.mywarehouse.models.User;
 import com.example.mywarehouse.models.Warehouse;
+import com.example.mywarehouse.repositories.CompanyRepository;
 import com.example.mywarehouse.repositories.UserRepository;
 import com.example.mywarehouse.repositories.WarehouseRepository;
 import com.example.mywarehouse.services.WarehouseService;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class WarehouseServiceImpl implements WarehouseService {
     private final WarehouseRepository warehouseRepository;
     private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
     @Override
     public List<Warehouse> listWarehouses(String name, Principal principal) {
         if (name != null) return warehouseRepository.findByName(name);
@@ -34,6 +36,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public void saveWarehouse(Warehouse warehouse, Company company, Principal principal) {
         warehouse.setCompany(company);
+        warehouse.setUser(getUserByPrincipal(principal));
+        warehouseRepository.save(warehouse);
     }
 
     @Override
@@ -42,12 +46,14 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public void updateWarehouse(Integer id, String name, String address, String type) {
+    public void updateWarehouse(Integer id, String name, String address, String type, String comName) {
+        Company company = companyRepository.findCompanyByName(comName);
         Optional<Warehouse> warehouse = warehouseRepository.findById(id);
         if (warehouse.get()!=null){
             warehouse.get().setName(name);
             warehouse.get().setAddress(address);
             warehouse.get().setType(type);
+            warehouse.get().setCompany(company);
         }
         warehouseRepository.save(warehouse.get());
     }

@@ -34,6 +34,12 @@ public class CompanyController {
         return "updateCompany";
     }
 
+    @GetMapping("/company/delete/{id}")
+    public String delCom(@PathVariable("id")Integer id){
+        companyService.deleteCompany(id);
+        return "redirect:/companies";
+    }
+
 
 
     @PostMapping("/company/{id}/update")
@@ -48,9 +54,4 @@ public class CompanyController {
         return "redirect:/companies";
     }
 
-    @PostMapping("/company/delete/{id}")
-    public String delCom(@PathVariable("id")Integer id){
-        companyService.deleteCompany(id);
-        return "redirect:/companies";
-    }
 }

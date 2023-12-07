@@ -20,6 +20,10 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final UserRepository userRepository;
 
+    public List<Company> list(User user){
+        return companyRepository.findAllByUser(user);
+    }
+
     @Override
     public List<Company> listCompanies(String name, Principal principal) {
         if (name != null) return companyRepository.findByName(name);
