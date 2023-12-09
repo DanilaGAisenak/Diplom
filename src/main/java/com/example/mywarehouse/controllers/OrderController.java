@@ -50,7 +50,7 @@ public class OrderController {
         model.addAttribute("companyFrom",comFr);
         List<Company> ComTo = companyRepository.findAll();
         model.addAttribute("companyTo",ComTo);
-        return "addOrders";
+        return "add/addOrders";
     }
     @GetMapping("/orders/update/{id}")
     public String updOrd(@PathVariable("id")Integer id, Principal principal, Model model){
@@ -62,7 +62,7 @@ public class OrderController {
         List<Company> ComTo = companyRepository.findAll();
         model.addAttribute("companyTo",ComTo);
         model.addAttribute("order",orderRepository.findByOrderId(id));
-        return "updateOrder";
+        return "update/updateOrder";
     }
     @GetMapping("/orders/delete/{id}")
     public String delOrd(@PathVariable("id")Integer id){

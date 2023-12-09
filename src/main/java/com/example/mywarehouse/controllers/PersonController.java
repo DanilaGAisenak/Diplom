@@ -3,11 +3,8 @@ package com.example.mywarehouse.controllers;
 import com.example.mywarehouse.models.Person;
 import com.example.mywarehouse.models.User;
 import com.example.mywarehouse.repositories.PersonRepository;
-import com.example.mywarehouse.repositories.UserRepository;
-import com.example.mywarehouse.services.PersonService;
 import com.example.mywarehouse.services.impl.PersonServiceImpl;
 import com.example.mywarehouse.services.impl.UserServiceImpl;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,7 +34,7 @@ public class PersonController {
     public String addPerson(Principal principal, Model model) {
         User user = userService.getUserByPrincipal(principal);
         model.addAttribute("user", user);
-        return "addPerson";
+        return "add/addPerson";
     }
 
     @GetMapping("/person/delete/{id}")
@@ -51,7 +46,7 @@ public class PersonController {
     @GetMapping("/person/update/{id}")
     public String updPerson(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("person", personRepository.findByPersonId(id));
-        return "updatePerson";
+        return "update/updatePerson";
     }
 
 

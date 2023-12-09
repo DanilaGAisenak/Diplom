@@ -1,12 +1,10 @@
 package com.example.mywarehouse.controllers;
 
-import com.example.mywarehouse.models.Image;
 import com.example.mywarehouse.models.Product;
 import com.example.mywarehouse.models.User;
 import com.example.mywarehouse.models.Warehouse;
 import com.example.mywarehouse.repositories.UserRepository;
 import com.example.mywarehouse.repositories.WarehouseRepository;
-import com.example.mywarehouse.repositories.productRepository;
 import com.example.mywarehouse.services.impl.ProductServiceImpl;
 import com.example.mywarehouse.services.impl.UserServiceImpl;
 import com.example.mywarehouse.services.impl.WarehouseServiceImpl;
@@ -45,7 +43,7 @@ public class productController {
         User user = productServiceImpl.getUserByPrincipal(principal);
         List<Warehouse> warehouses = warehouseRepository.findAllByUser(user);
         model.addAttribute("warehouse", warehouses);
-        return "addProduct";
+        return "add/addProduct";
     }
 
     @GetMapping("/product/{id}")
@@ -64,7 +62,7 @@ public class productController {
         User user = productServiceImpl.getUserByPrincipal(principal);
         List<Warehouse> warehouses = warehouseRepository.findAllByUser(user);
         model.addAttribute("warehouse", warehouses);
-        return "updateProduct";
+        return "update/updateProduct";
     }
 
     @GetMapping("{id}/wrongSize")

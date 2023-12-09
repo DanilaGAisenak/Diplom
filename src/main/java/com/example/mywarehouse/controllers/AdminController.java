@@ -32,7 +32,7 @@ public class AdminController {
     public String userInfo(@PathVariable("user") User user, Model model){
         model.addAttribute("user",user);
         model.addAttribute("roles", Role.values());
-        return "user-edit";
+        return "update/user-edit";
     }
 
 

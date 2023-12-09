@@ -36,7 +36,7 @@ public class WarehouseController {
         User user = warehouseService.getUserByPrincipal(principal);
         List<Company> list = companyService.list(user);
         model.addAttribute("companies", list);
-        return "addWarehouse";
+        return "add/addWarehouse";
     }
 
     @GetMapping("/warehouses/{id}/update")
@@ -46,7 +46,7 @@ public class WarehouseController {
         User user = warehouseService.getUserByPrincipal(principal);
         List<Company> list = companyService.list(user);
         model.addAttribute("companies", list);
-        return "updateWarehouse";
+        return "update/updateWarehouse";
     }
 
     @GetMapping("/warehouses/delete/{id}")

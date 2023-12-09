@@ -1,23 +1,18 @@
 package com.example.mywarehouse.controllers;
 
 import com.example.mywarehouse.models.User;
-import com.example.mywarehouse.models.enums.Role;
 import com.example.mywarehouse.repositories.UserRepository;
 import com.example.mywarehouse.services.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,12 +22,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(){
-        return "login";
+        return "login/login";
     }
 
     @GetMapping("/registration")
     public String registration(){
-        return "registration";
+        return "login/registration";
     }
 
     @GetMapping("/")
@@ -52,7 +47,7 @@ public class UserController {
         User user = userRepository.findByUserId(id);
         model.addAttribute("user", user);
         //model.addAttribute("avatar",user.getAvatar());
-        return "profile-upd";
+        return "update/profile-upd";
     }
 
 

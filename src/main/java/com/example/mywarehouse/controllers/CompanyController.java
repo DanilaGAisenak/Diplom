@@ -25,13 +25,13 @@ public class CompanyController {
     }
 
     @GetMapping("/company/add")
-    public String addCom(){ return "addCompany"; }
+    public String addCom(){ return "add/addCompany"; }
 
     @GetMapping("/company/{id}/update")
     public String upd(@PathVariable("id")Integer id, Model model){
         Company company = companyService.getCompanyById(id);
         model.addAttribute("company",company);
-        return "updateCompany";
+        return "update/updateCompany";
     }
 
     @GetMapping("/company/delete/{id}")
