@@ -17,6 +17,9 @@
     <form action="/person" method="get">
         <input type="submit" value="Личные данные">
     </form>
+    <form th:action="'/user/profile/'+${user.userId}+'/changePass'">
+        <input type="submit" value="Сменить пароль">
+    </form>
 </div>
 <br>
 <a href="/">Назад</a>

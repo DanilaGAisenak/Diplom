@@ -4,6 +4,8 @@ import com.example.mywarehouse.models.User;
 import com.example.mywarehouse.repositories.UserRepository;
 import com.example.mywarehouse.services.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +24,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(){
-        return "login/login";
+        return "log/login";
     }
 
     @GetMapping("/registration")
     public String registration(){
-        return "login/registration";
+        return "log/registration";
     }
 
     @GetMapping("/")
@@ -49,9 +51,46 @@ public class UserController {
         //model.addAttribute("avatar",user.getAvatar());
         return "update/profile-upd";
     }
+    @GetMapping("/user/profile/{id}/changePass")
+    public String changePas(@PathVariable("id")Integer id, Model model){
+        User user = userRepository.findByUserId(id);
+        model.addAttribute("user",user);
+        String message = "Введите текущий пароль:";
+        model.addAttribute("mes",message);
+        Boolean flag = false;
+        model.addAttribute("flag", flag);
+        return "update/changePassword";
+    }
 
 
 
+    @PostMapping("/user/profile/{id}/changePass")
+    public String changePass(@PathVariable("id")Integer id, Model model, @RequestParam String pas){
+        User user = userRepository.findByUserId(id);
+        model.addAttribute("user", user);
+        String message = "";
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
+        if(passwordEncoder.matches(pas, user.getPassword())) {
+            message = "Введите новый пароль";
+            Boolean flag = true;
+            model.addAttribute("mes", message);
+            model.addAttribute("flag", flag);
+
+        }
+        else {
+            Boolean flag = false;
+            message = "Неверный пароль";
+            model.addAttribute("mes", message);
+            model.addAttribute("flag", flag);
+        }
+        return "update/changePassword";
+    }
+    @PostMapping("/user/profile/{id}/change")
+    public String change(@PathVariable("id")Integer id, String pas, Principal principal){
+        User user = userService.getUserByPrincipal(principal);
+        user.setPassword(pas);
+        return "redirect:/user/profile/{id}";
+    }
     @PostMapping("/user/profile/{id}")
     public String prof(@PathVariable("id")Integer id, @RequestParam String username, @RequestParam String name
                        /*@RequestParam MultipartFile file*/) throws IOException {
