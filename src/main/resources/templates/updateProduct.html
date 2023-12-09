@@ -14,8 +14,8 @@
     Себестоимость: <input type="number" step="any" name="production_price" th:value="${product.production_price}"
                           required><br>
     <!--    Сделать warehouse Select-> option-->
-    На складе: <select th:each="wh : ${warehouse}" name="warehouse" required>
-    <option th:value="${wh.getName()}" th:text="${wh.getName()}"></option>
+    На складе: <select name="warehouse" required>
+    <option th:each="wh : ${warehouse}" th:value="${wh.getName()}" th:text="${wh.getName()}"></option>
 </select><br>
     Заменить фото:<br>
     <input type="file" name="file1"><br>

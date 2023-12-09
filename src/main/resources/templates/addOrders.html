@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление сделки</title>
+</head>
+<body>
+<h3>Добавление сделки</h3>
+<form action="/orders/add" method="post">
+    Компания поставщик:<br>
+    <select name="comFromName" required>
+        <option th:each="com : ${companyFrom}" th:value="${com.getName()}" th:text="${com.getName()}"></option>
+    </select><br>
+    Товар:<br>
+    <select name="prodName" required>
+        <option th:each="pr : ${products}" th:value="${pr.getName()}" th:text="${pr.getName()}"></option>
+    </select><br>
+    Количество:<br>
+    <input type="number" name="amount" required>
+    Компания покупатель:
+    <select name="comToName" required>
+        <option th:each="comt : ${companyTo}" th:value="${comt.getName()}" th:text="${comt.getName()}"></option>
+    </select><br>
+    <input type="submit" value="Добавить">
+</form>
+<button onclick="location.href='/orders'">Вернуться</button>
+</body>
+</html>

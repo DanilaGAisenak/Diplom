@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Продажи</title>
+</head>
+<body>
+<h3>Сделки</h3>
+<table style="width: 100%; text-align: center;">
+    <tr>
+<!--        <th>id</th>-->
+        <th>От</th>
+        <th>Куда</th>
+        <th>Товар</th>
+        <th>Количество</th>
+        <th>Сумма</th>
+        <th>Дополнительно</th>
+    </tr>
+    <tr th:each="ord : ${orders}">
+<!--        <td th:text="${ord.orderId}"></td>-->
+        <td th:text="${ord.companyFrom.name}"></td>
+        <td th:text="${ord.companyTo.name}"></td>
+        <td th:text="${ord.product.name}"></td>
+        <td th:text="${ord.amount}"></td>
+        <td th:text="${ord.sum}"></td>
+        <td> <a th:href="'/orders/update/'+${ord.orderId}">Редактировать</a> <br> <a th:href="'/orders/delete/'+${ord.orderId}">Удалить</a> </td>
+    </tr>
+</table>
+<button onclick="location.href='/orders/add'">Добавить сделку</button>
+<button onclick="location.href='/'">Назад</button>
+</body>
+</html>

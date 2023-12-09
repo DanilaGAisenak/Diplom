@@ -27,5 +27,9 @@ public class Company {
     private User user;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "company")
     private List<Warehouse> warehouses = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "companyFrom")
+    private List<Order> orderFrom = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "companyTo")
+    private List<Order> orderTo = new ArrayList<>();
 
 }

@@ -7,8 +7,8 @@
 <body>
 <h3>Добавить склад</h3>
 <form action="/warehouses/add" method="post">
-Выберите какой компании принадлежит склад:<select th:each="com : ${companies}" name="comName" required>
-    <option  th:value="${com.getName()}" th:text="${com.getName()}"></option>
+Выберите какой компании принадлежит склад:<select name="comName" required>
+    <option th:each="com : ${companies}"  th:value="${com.getName()}" th:text="${com.getName()}"></option>
 </select><br>
 Название: <input type="text" name="name" required><br>
 Адрес: <input type="text" name="address" required><br>

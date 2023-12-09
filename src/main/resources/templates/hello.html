@@ -17,6 +17,7 @@
 <button  onclick="location.href='/products'">Товары</button>
 <button  onclick="location.href='/companies'">Компании</button>
 <button  onclick="location.href='/warehouses'">Склады</button>
+<button  onclick="location.href='/orders'">Сделки</button>
 <button th:if="${user.isUser()}==false" onclick="location.href='/admin'">Меню Администратора</button>
 <a th:if="${user.username}!=null" th:href="'/user/profile/'+${user.userId}">Профиль</a>
 </div>

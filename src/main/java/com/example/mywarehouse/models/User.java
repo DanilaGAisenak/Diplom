@@ -45,6 +45,8 @@ public class User implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "personId", referencedColumnName = "personId")
     private Person person;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
     private LocalDateTime dateOfCreation;
 
     public boolean isUser(){

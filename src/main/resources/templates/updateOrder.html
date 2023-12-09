@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaef.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование</title>
+</head>
+<body>
+<h3>Редактирование сделки</h3>
+<form th:action="'/orders/update/'+${order.orderId}" method="post">
+    Компания поставщик:<br>
+    <select name="comFromName" required>
+        <option th:each="com : ${companyFrom}" th:value="${com.getName()}" th:text="${com.getName()}"
+                th:selected="${order.companyFrom.name.equals(com.getName())} == true"></option>
+    </select><br>
+    Товар:<br>
+    <select name="prodName" required>
+        <option th:each="pr : ${products}" th:value="${pr.getName()}" th:text="${pr.getName()}"
+                th:selected="${order.product.name.equals(pr.getName())} == true"></option>
+    </select><br>
+    Количество:<br>
+    <input type="number" name="amount" th:value="${order.amount}" required>
+    Компания покупатель:
+    <select name="comToName" required>
+        <option th:each="comt : ${companyTo}" th:value="${comt.getName()}" th:text="${comt.getName()}"
+                th:selected="${order.companyTo.name.equals(comt.getName())} == true"></option>
+    </select><br>
+    <input type="submit" value="Сохранить">
+</form>
+<button onclick="location.href='/orders'">Вернуться</button>
+</body>
+</html>

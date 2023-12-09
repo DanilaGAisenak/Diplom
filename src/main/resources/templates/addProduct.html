@@ -14,8 +14,8 @@
     Фото 3: <input type="file" name="file3"><br><br>
     Налог: <input type="number" name="tax" required><br><br>
     Себестоимость: <input type="number" step="any" name="production_price" required><br><br>
-    <select th:each="wh : ${warehouse}" name="wah" required>
-        <option  th:value="${wh.getName()}" th:text="${wh.getName()}"></option>
+    <select name="wah" required>
+        <option th:each="wh : ${warehouse}"  th:value="${wh.getName()}" th:text="${wh.getName()}"></option>
     </select><br>
     <input type="submit" value="Добавить товар">
 </form>
