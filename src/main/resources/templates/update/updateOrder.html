@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Редактирование</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<h3>Редактирование сделки</h3>
-<form th:action="'/orders/update/'+${order.orderId}" method="post">
-    Компания поставщик:<br>
-    <select name="comFromName" required>
-        <option th:each="com : ${companyFrom}" th:value="${com.getName()}" th:text="${com.getName()}"
-                th:selected="${order.companyFrom.name.equals(com.getName())} == true"></option>
-    </select><br>
-    Товар:<br>
-    <select name="prodName" required>
-        <option th:each="pr : ${products}" th:value="${pr.getName()}" th:text="${pr.getName()}"
-                th:selected="${order.product.name.equals(pr.getName())} == true"></option>
-    </select><br>
-    Количество:<br>
-    <input type="number" name="amount" th:value="${order.amount}" required>
-    Компания покупатель:
-    <select name="comToName" required>
-        <option th:each="comt : ${companyTo}" th:value="${comt.getName()}" th:text="${comt.getName()}"
-                th:selected="${order.companyTo.name.equals(comt.getName())} == true"></option>
-    </select><br>
-    <input type="submit" value="Сохранить">
-</form>
-<button onclick="location.href='/orders'">Вернуться</button>
+<div class="container" style="width: 50%; margin-left: 25%; margin-top: 10%;">
+    <form th:action="'/orders/update/'+${order.orderId}" method="post">
+        Компания поставщик:<br>
+        <select class="form-select" name="comFromName" required>
+            <option th:each="com : ${companyFrom}" th:value="${com.getName()}" th:text="${com.getName()}"
+                    th:selected="${order.companyFrom.name.equals(com.getName())} == true"></option>
+        </select><br>
+        Товар:<br>
+        <select class="form-select" name="prodName" required>
+            <option th:each="pr : ${products}" th:value="${pr.getName()}" th:text="${pr.getName()}"
+                    th:selected="${order.product.name.equals(pr.getName())} == true"></option>
+        </select><br>
+        Количество:<br>
+        <input class="form-control" type="number" name="amount" th:value="${order.amount}" required>
+        Компания покупатель:
+        <select class="form-select" name="comToName" required>
+            <option th:each="comt : ${companyTo}" th:value="${comt.getName()}" th:text="${comt.getName()}"
+                    th:selected="${order.companyTo.name.equals(comt.getName())} == true"></option>
+        </select><br>
+        <input type="submit" class="btn btn-success" value="Сохранить">
+    </form>
+</div>
 </body>
 </html>

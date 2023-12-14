@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление личных данных</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<h3>Добавление личных данных</h3>
-<form th:action="'/person/add'" method="post">
-    Имя: <input type="text" name="name" required>
-    Фамилия: <input type="text" name="surname" required>
-    Возраст: <input type="number" min="18" max="99" name="age" required>
-    <input type="submit" value="Добавить">
-</form>
-<button onclick="location.href='/person'">Назад</button>
+<div class="container" style="width: 70%; margin-left: 15%; margin-top: 10%;">
+    <p class="fs-2 text-start">Добавление личных данных</p>
+    <form th:action="'/person/add'" method="post">
+        Имя: <input type="text" class="form-control" name="name" required>
+        Фамилия: <input type="text" class="form-control" name="surname" required>
+        Возраст: <input type="number" class="form-control" min="18" max="99" name="age" required>
+        <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 3%;">
+            <input type="submit" class="btn btn-success" value="Добавить">
+        </div>
+    </form>
+    <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 3%;">
+        <a href='/person' role="button" class="btn btn-info">Назад</a>
+    </div>
+</div>
 </body>
 </html>

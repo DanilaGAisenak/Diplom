@@ -37,6 +37,7 @@ public class OrderController {
     public String orders(Principal principal, Model model) {
         User user = orderService.getUserByPrincipal(principal);
         List<Order> list = orderRepository.findAllByUser(user);
+        model.addAttribute("user",user);
         model.addAttribute("orders", list);
         return "orders";
     }

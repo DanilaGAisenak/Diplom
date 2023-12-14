@@ -2,28 +2,35 @@
 <html xmlns:th="http://www.thymeleaef.org">
 <head>
     <title>Подробная информация о товаре</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<form th:action="'/product/'+${product.product_id}+'/updateS'" method="post" enctype="multipart/form-data">
-    Название товара: <input type="text" name="name" th:value="${product.name}" required><br>
-    Категория: <input type="text" name="category" th:value="${product.category}" required><br>
-    Цена: <input type="number" step="any" name="price" th:value="${product.price}" required><br>
-    Заглавное фото: <input type="number" max="3" placeholder="Нет фото - введите 0" name="img_link"
-                           th:value="${product.img_link}" required><br>
-    Ставка НДС: <input type="number" step="any" name="tax" th:value="${product.tax}" required><br>
-    Себестоимость: <input type="number" step="any" name="production_price" th:value="${product.production_price}"
-                          required><br>
-    <!--    Сделать warehouse Select-> option-->
-    На складе: <select name="warehouse" required>
-    <option th:each="wh : ${warehouse}" th:value="${wh.getName()}" th:text="${wh.getName()}"></option>
-</select><br>
-    Заменить фото:<br>
-    <input type="file" name="file1"><br>
-    <input type="file" name="file2"><br>
-    <input type="file" name="file3"><br>
-    <input type="submit" value="Редактировать">
-</form>
-Текущие фото:<br>
-<img th:each="im : ${images}" th:if="${im.getId()}!= null" th:src="'/images/'+${im.getId()}" height="120px"/>
+<div class="container" style="width: 50%; margin-left: 25%; margin-top: 10%;">
+    <form th:action="'/product/'+${product.product_id}+'/updateS'" method="post" enctype="multipart/form-data">
+        Название товара: <input type="text" class="form-control" name="name" th:value="${product.name}" required><br>
+        Категория: <input type="text" name="category" class="form-control" th:value="${product.category}" required><br>
+        Цена: <input type="number" step="any" name="price" class="form-control" th:value="${product.price}" required><br>
+        Заглавное фото: <input type="number" class="form-control" max="3" placeholder="Нет фото - введите 0" name="img_link"
+                               th:value="${product.img_link}" required><br>
+        Ставка НДС: <input type="number" class="form-control" step="any" name="tax" th:value="${product.tax}" required><br>
+        Себестоимость: <input type="number" class="form-control" step="any" name="production_price" th:value="${product.production_price}"
+                              required><br>
+        <!--    Сделать warehouse Select-> option-->
+        На складе: <select class="form-select" name="warehouse" required>
+        <option th:each="wh : ${warehouse}" th:value="${wh.getName()}" th:text="${wh.getName()}"></option>
+    </select><br>
+        Заменить фото:<br>
+        <input class="form-control" type="file" name="file1"><br>
+        <input type="file" class="form-control" name="file2"><br>
+        <input type="file" class="form-control" name="file3"><br>
+        <input type="submit" class="btn btn-warning" value="Редактировать">
+    </form>
+    Текущие фото:<br>
+    <img th:each="im : ${images}" th:if="${im.getId()}!= null" th:src="'/images/'+${im.getId()}" height="120px"/>
+</div>
 </body>
 </html>

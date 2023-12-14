@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 
 
 @Controller
@@ -23,7 +24,9 @@ public class AdminController {
     private final UserRepository userRepository;
 
     @GetMapping("/admin")
-    public String admin(Model model){
+    public String admin(Model model, Principal principal){
+        User user = userService.getUserByPrincipal(principal);
+        model.addAttribute("user",user);
         model.addAttribute("users", userService.allUsers());
         return "usersMenu";
     }

@@ -108,7 +108,7 @@ public class UserController {
     public String CreateUser(User user, Model model){
         if (!userService.createUser(user)){
             model.addAttribute("errorMessage", "Пользователь с username: "+user.getUsername()+"уже существует");
-            return "registration";
+            return "log/registration";
         }
         //userService.createUser(user);
         return "redirect:/login";

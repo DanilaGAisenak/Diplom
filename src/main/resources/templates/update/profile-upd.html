@@ -3,16 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Изменение профиля</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <!--<img th:src="${user.getAvatar()}"><br>-->
-<form th:action="'/user/profile/'+${user.userId}" method="post" enctype="multipart/form-data">
-<!--  <img th:src="${avatar}"> <input type="file" name="file">-->
-  Логин: <input type="email" name="username" th:value="${user.username}">
-  Имя: <input type="text" name="name" th:value="${user.name}">
-  <input type="hidden" th:value="${user.userId}">
-  <input type="submit" value="Сохранить">
-</form>
-<a th:href="'/user/profile/'+${user.userId}">Назад</a>
+<div class="container" style="width: 50%; margin-left: 25%; margin-top: 10%;">
+    <form th:action="'/user/profile/'+${user.userId}" method="post" enctype="multipart/form-data">
+        <!--  <img th:src="${avatar}"> <input type="file" name="file">-->
+        Логин: <input type="email" class="form-control" name="username" th:value="${user.username}">
+        Имя: <input type="text" class="form-control" name="name" th:value="${user.name}">
+        <input type="hidden" th:value="${user.userId}">
+        <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 3%;">
+            <input type="submit" class="btn btn-primary" value="Сохранить">
+        </div>
+    </form>
+    <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 3%;">
+        <a th:href="'/user/profile/'+${user.userId}" class="btn btn-outline-info" role="button">Назад</a>
+    </div>
+</div>
 </body>
 </html>

@@ -3,25 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Профиль</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<div>
-    <p th:text="'id: '+${user.getUserId()}"></p><br>
+<header th:insert="~{blocks/header :: header}"></header>
+<div class="container" style="width: 80%; margin-left: 10%; margin-top: 10%;
+ border: black 1px solid; background-color: aquamarine; border-radius: 5px;">
+    <p class="text-start" th:text="'id: '+${user.getUserId()}" style="width: 100%;"></p><br>
     <!--  <img th:src="${user.getAvatar().getId()}"><br>-->
-    <p th:text="'Логин: '+${user.username}"></p><br>
-    <p th:text="'Имя: '+${user.name}"></p><br>
-    <p th:text="'Активный: '+${user.active}"></p><br>
-    <form th:action="'/user/profile/'+${user.userId}+'/smth'" method="get">
-        <input type="submit" value="Редактировать">
-    </form>
-    <form action="/person" method="get">
-        <input type="submit" value="Личные данные">
-    </form>
-    <form th:action="'/user/profile/'+${user.userId}+'/changePass'">
-        <input type="submit" value="Сменить пароль">
-    </form>
+    <p class="text-center" th:text="'Логин: '+${user.username}" style="width: 70%; margin-left: 15%;
+    background-color: bisque; border-radius: 3px;"></p><br>
+    <p class="text-center" th:text="'Имя: '+${user.name}" style="width: 70%; margin-left: 15%;
+    background-color: bisque; border-radius: 3px;"></p><br>
+    <p class="text-center" th:text="'Активный: '+${user.active}" style="width: 70%; margin-left: 15%;
+    background-color: bisque; border-radius: 3px;"></p><br>
+    <div class="d-flex flex-row mb-3 justify-content-around" style="width: 100%; margin-left: -3%;">
+        <div class="p-2">
+            <form th:action="'/user/profile/'+${user.userId}+'/smth'" method="get">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <input type="submit" class="btn btn-outline-warning" value="Редактировать">
+                </div>
+            </form>
+        </div>
+        <div class="p-2">
+            <form th:action="'/user/profile/'+${user.userId}+'/changePass'">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <input type="submit" class="btn btn-outline-danger" value="Сменить пароль">
+                </div>
+            </form>
+        </div>
+        <div class="p-2">
+            <form action="/person" method="get">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <input type="submit" class="btn btn-outline-info" value="Личные данные">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<br>
-<a href="/">Назад</a>
 </body>
 </html>

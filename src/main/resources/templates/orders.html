@@ -2,13 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaef.org">
 <head>
     <meta charset="UTF-8">
-    <title>Продажи</title>
+    <title>Сделки</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<h3>Сделки</h3>
-<table style="width: 100%; text-align: center;">
+<header th:insert="~{blocks/header :: header}"></header>
+<div class="container" style="margin-top: 5%;">
+    <a href='/orders/add' role="button" class="btn btn-success">Добавить сделку</a>
+</div>
+<table class="table table-dark table-striped-columns" style="width: 100%; text-align: center; margin-top: 1%;">
     <tr>
-<!--        <th>id</th>-->
+        <!--        <th>id</th>-->
         <th>От</th>
         <th>Куда</th>
         <th>Товар</th>
@@ -17,16 +25,22 @@
         <th>Дополнительно</th>
     </tr>
     <tr th:each="ord : ${orders}">
-<!--        <td th:text="${ord.orderId}"></td>-->
+        <!--        <td th:text="${ord.orderId}"></td>-->
         <td th:text="${ord.companyFrom.name}"></td>
         <td th:text="${ord.companyTo.name}"></td>
         <td th:text="${ord.product.name}"></td>
         <td th:text="${ord.amount}"></td>
         <td th:text="${ord.sum}"></td>
-        <td> <a th:href="'/orders/update/'+${ord.orderId}">Редактировать</a> <br> <a th:href="'/orders/delete/'+${ord.orderId}">Удалить</a> </td>
+        <td>
+            <div class="d-flex flex-row mb-2 justify-content-around">
+                <div class="p-2">
+                    <a th:href="'/orders/update/'+${ord.orderId}" role="button" class="btn btn-info">Редактировать</a>
+                </div>
+                <div class="p-2"></div>
+                <a th:href="'/orders/delete/'+${ord.orderId}" role="button" class="btn btn-danger">Удалить</a>
+            </div>
+        </td>
     </tr>
 </table>
-<button onclick="location.href='/orders/add'">Добавить сделку</button>
-<button onclick="location.href='/'">Назад</button>
 </body>
 </html>

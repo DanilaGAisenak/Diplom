@@ -1,0 +1,48 @@
+<div th:fragment="header">
+
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">MyWarehouse</a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <div th:if="${user.username}!=null" class="unauthorized">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/products">Товары</a>
+            </li>
+          </div>
+          <div th:if="${user.username}!=null" class="unauthorized">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/companies">Компании</a>
+            </li>
+          </div>
+          <div th:if="${user.username}!=null" class="unauthorized">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/warehouses">Склады</a>
+            </li>
+          </div>
+          <div th:if="${user.username}!=null" class="unauthorized">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/orders">Сделки</a>
+            </li>
+          </div>
+          <div th:if="${user.username}!=null" class="unauthorized">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" th:href="'/user/profile/'+${user.userId}">Профиль</a>
+            </li>
+          </div>
+          <div th:if="${user.username}!=null"  class="unauthorized">
+            <li th:if="${user.isUser()}==false" class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/admin">Пользователи</a>
+            </li>
+          </div>
+        </ul>
+        <form th:if="${user.username}==null" class="d-inline-block" name="login" th:action="@{/login}" method="get">
+          <button class="btn btn-outline-success" type="submit">Войти</button>
+        </form>
+        <form th:if="${user.username}!=null" class="d-inline-block" name="logout" th:action="@{/logout}" method="post">
+          <button class="btn btn-outline-success" type="submit">Выйти</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</div>

@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление склада</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<h3>Добавить склад</h3>
-<form action="/warehouses/add" method="post">
-Выберите какой компании принадлежит склад:<select name="comName" required>
-    <option th:each="com : ${companies}"  th:value="${com.getName()}" th:text="${com.getName()}"></option>
-</select><br>
-Название: <input type="text" name="name" required><br>
-Адрес: <input type="text" name="address" required><br>
-Тип: <input type="text" name="type" required><br>
-    <input type="submit" value="Создать">
-</form>
-<button onclick="location.href='/'">Вернуться</button>
+<div class="container" style="width: 70%; margin-left: 15%; margin-top: 10%;">
+    <p class="fs-2 text-start">Добавление склада</p>
+    <form action="/warehouses/add" method="post">
+        Выберите какой компании принадлежит склад:<select class="form-select" name="comName" required>
+        <option th:each="com : ${companies}" th:value="${com.getName()}" th:text="${com.getName()}"></option>
+    </select><br>
+        Название: <input class="form-control" type="text" name="name" required><br>
+        Адрес: <input class="form-control" type="text" name="address" required><br>
+        Тип: <input type="text" class="form-control" name="type" required><br>
+        <input type="submit" class="btn btn-success" value="Создать">
+    </form>
+</div>
 </body>
 </html>

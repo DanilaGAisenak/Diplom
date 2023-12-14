@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaef.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Редактирование склада</title>
+    <meta charset="UTF-8">
+    <title>Редактирование склада</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<h3>Добавить склад</h3>
-<form th:action="'/warehouses/'+${wh.warehouseId}+'/update'" method="post">
-  Компания:<select name="comName" required>
-  <option th:each="com : ${companies}"  th:value="${com.getName()}" th:text="${com.getName()}"></option>
-</select><br>
-  Название: <input type="text" name="name" th:value="${wh.name}" required><br>
-  Адрес: <input type="text" name="address" th:value="${wh.address}" required><br>
-  Тип: <input type="text" name="type" th:value="${wh.type}" required><br>
-  <input type="submit" value="Сохранить">
-</form>
-<button onclick="location.href='/warehouses'">Вернуться</button>
+<div class="container" style="width: 50%; margin-left: 25%; margin-top: 10%;">
+    <form th:action="'/warehouses/'+${wh.warehouseId}+'/update'" method="post">
+        Компания:<select class="form-select" name="comName" required>
+        <option th:each="com : ${companies}" th:value="${com.getName()}" th:text="${com.getName()}"></option>
+    </select><br>
+        Название: <input class="form-control" type="text" name="name" th:value="${wh.name}" required><br>
+        Адрес: <input type="text" class="form-control" name="address" th:value="${wh.address}" required><br>
+        Тип: <input type="text" class="form-control" name="type" th:value="${wh.type}" required><br>
+        <input type="submit" class="btn btn-warning" value="Сохранить">
+    </form>
+</div>
 </body>
 </html>
