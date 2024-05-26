@@ -52,4 +52,8 @@ public class Product {
         image.setProduct(this);
         images.add(image);
     }
+
+    public Integer getId(){
+        return product_id;
+    }
 }

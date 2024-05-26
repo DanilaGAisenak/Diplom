@@ -22,6 +22,7 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private final productRepository productRepository;
     private final UserRepository userRepository;
+    private final UserServiceImpl userService;
     private final WarehouseRepository warehouseRepository;
     @Override
     public List<Product> listProducts(String name, Principal principal){
@@ -30,12 +31,33 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByUser(user);
     }
 
+    public List<Product> listThem(String name, Principal principal){
+        if (name != null) return productRepository.findByName(name);
+        User user = userRepository.findByUserId(userService.getUserByPrincipal(principal).getMasterId());
+        List<Product> princip = productRepository.findAllByUser(userService.getUserByPrincipal(principal));
+        List<Product> my = productRepository.findAllByUser(user);
+        for (Product prod: my ) {
+            princip.add(prod);
+        }
+        return princip;
+    }
+
     @Override
     public void saveProduct(Principal principal, Product product,
                             MultipartFile image1, MultipartFile image2,
                             MultipartFile image3, String whName) throws IOException {
-        product.setUser(getUserByPrincipal(principal));
-        Warehouse wh = warehouseRepository.findWarehouseByName(whName);
+        User user = new User();
+        if( userService.getUserByPrincipal(principal).getMasterId() != null ){
+            user = userRepository.findByUserId(userService.getUserByPrincipal(principal).getMasterId());
+        }
+        else user  =userService.getUserByPrincipal(principal);
+        product.setUser(user);
+        List<Warehouse> whs = warehouseRepository.findAllByUser(user);
+        Warehouse wh = new Warehouse();
+        for (Warehouse whouse: whs ) {
+            if (whouse.getName().equals(whName)) wh = whouse;
+        }
+        //Warehouse wh = warehouseRepository.findWarehouseByName(whName);
         product.setWarehouse(wh);
         Image img1;
         Image img2;
@@ -83,6 +105,13 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
+    public void delImg(Integer id){
+        Optional<Product> product = productRepository.findById(id);
+        for (Image image:product.get().getImages()) {
+            image.setProduct(null);
+        }
+        productRepository.save(product.get());
+    }
     @Override
     public void updateProduct(Integer id, String name, String category, Float price, Integer img_link,
                               Integer tax, Float production_price, Warehouse warehouse, /*Integer user,*/
@@ -99,6 +128,10 @@ public class ProductServiceImpl implements ProductService {
             product.get().setProduction_price(production_price);
             product.get().setWarehouse(warehouse);
             product.get().setUser(user);
+            for (Image image:product.get().getImages()) {
+                image.setProduct(null);
+            }
+            productRepository.save(product.get());
             Image img1;
             Image img2;
             Image img3;

@@ -25,20 +25,27 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     @Override
-    public void saveOrder(Order order, String prodName, String comFromName, String comToName, Principal principal) {
-        List<Order> orderList = new ArrayList<>();
-        orderList.add(order);
-        Product product = productRepository.findProductByName(prodName);
+    public void saveOrder(Integer amount, String prodName, String comFromName, String comToName, Principal principal) {
+        Order order = new Order();
+        if (getUserByPrincipal(principal).getMasterId() != null) {
+            order.setUser(userRepository.findByUserId(getUserByPrincipal(principal).getMasterId()));
+        }
+        else order.setUser(getUserByPrincipal(principal));
+        //List<Order> orderList = new ArrayList<>();
+        //orderList.add(order);
+        //Product product = productRepository.findProductByName(prodName);
+        List<Product> whs = productRepository.findAllByUser(order.getUser());
+        Product product = new Product();
+        for (Product whouse: whs ) {
+            if (whouse.getName().equals(prodName)) product = whouse;
+        }
         order.setProduct(product);
+        order.setAmount(amount);
+        order.setSum(amount * product.getPrice());
         Company companyFrom = companyRepository.findCompanyByName(comFromName);
         order.setCompanyFrom(companyFrom);
         Company companyTo = companyRepository.findCompanyByName(comToName);
         order.setCompanyTo(companyTo);
-        User user = getUserByPrincipal(principal);
-        if (user.getMasterId() != null) {
-            order.setUser(userRepository.findByMasterId(user.getMasterId()));
-        }
-        else order.setUser(user);
         orderRepository.save(order);
     }
 
@@ -48,14 +55,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(Integer id, Integer amount, Float sum, String comFromName, String comToName, String prodName) {
+    public void updateOrder(Integer id, Integer amount, String comFromName, String comToName, String prodName, Principal principal) {
         Order order = orderRepository.findByOrderId(id);
         Company companyFr = companyRepository.findCompanyByName(comFromName);
         Company companyTo = companyRepository.findCompanyByName(comToName);
-        Product product = productRepository.findProductByName(prodName);
+        if (getUserByPrincipal(principal).getMasterId() != null) {
+            order.setUser(userRepository.findByUserId(getUserByPrincipal(principal).getMasterId()));
+        }
+        else order.setUser(getUserByPrincipal(principal));
+        List<Product> whs = productRepository.findAllByUser(order.getUser());
+        Product product = new Product();
+        for (Product whouse: whs ) {
+            if (whouse.getName().equals(prodName)) product = whouse;
+        }
         if (order != null) {
             order.setAmount(amount);
-            order.setSum(sum);
+            order.setSum(amount * product.getPrice());
             order.setProduct(product);
             order.setCompanyFrom(companyFr);
             order.setCompanyTo(companyTo);

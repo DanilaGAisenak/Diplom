@@ -13,7 +13,8 @@
 <div class="container" style="width: 50%; margin-left: 25%; margin-top: 10%;">
   <!--enctype="multipart/form-data"-->
   <form th:action="'/mod/update/'+${user.userId}" method="post">
-    Логин: <input type="email" class="form-control" name="username" th:value="${user.username}">
+      Логин: <input type="email" class="form-control" name="username" th:if="${user.userId} != ${myUser}" th:value="${user.username}">
+      Логин: <input type="email" class="form-control" name="username" th:if="${user.userId} == ${myUser}" hidden th:value="${user.username}">
     Имя: <input type="text" class="form-control" name="name" th:value="${user.name}"><br>
     <input type="radio" class="form-check-input mt-0" name="role" id="role1" value="ROLE_USER" th:checked="${user.isUser()==true}">
     <label for="role1">User</label>

@@ -12,8 +12,8 @@
               <a class="nav-link dropdown-toggle" role="button" id="dropdownMyLink"
                  data-bs-toggle="dropdown" >Управление</a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMyLink">
-                <li> <a class="dropdown-item" href="/warehouses">Склады</a> </li>
-                <li> <a class="dropdown-item" href="/companies">Компании</a> </li>
+                <li> <a class="dropdown-item" th:if="${user.getMasterId()}==null" href="/warehouses">Склады</a> </li>
+                <li> <a class="dropdown-item" th:if="${user.getMasterId()}==null" href="/companies">Компании</a> </li>
                 <li> <a class="dropdown-item" href="/products">Товары</a> </li>
               </ul>
             </li>
@@ -47,7 +47,8 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="/displayBarGraph">Диаграмма сумм по сделкам</a></li>
-                <li><a class="dropdown-item"  href="/displayPieChart">Диаграмма количества пользователей</a></li>
+                <li><a class="dropdown-item" th:if="${user.isUser()}==false"  href="/displayPieChart">Диаграмма количества пользователей</a></li>
+                <li><a class="dropdown-item"  href="/saveBill">Записать отчет в EXCEL</a></li>
               </ul>
             </li>
           </div>

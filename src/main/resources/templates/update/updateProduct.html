@@ -14,8 +14,8 @@
         Название товара: <input type="text" class="form-control" name="name" th:value="${product.name}" required><br>
         Категория: <input type="text" name="category" class="form-control" th:value="${product.category}" required><br>
         Цена: <input type="number" step="any" name="price" class="form-control" th:value="${product.price}" required><br>
-        Заглавное фото: <input type="number" class="form-control" max="3" placeholder="Нет фото - введите 0" name="img_link"
-                               th:value="${product.img_link}" required><br>
+        <input type="number" class="form-control" min="0" max="3" placeholder="Нет фото - введите 0" name="img_link"
+                               th:value="0" hidden><br>
         Ставка НДС: <input type="number" class="form-control" step="any" name="tax" th:value="${product.tax}" required><br>
         Себестоимость: <input type="number" class="form-control" step="any" name="production_price" th:value="${product.production_price}"
                               required><br>
@@ -30,6 +30,9 @@
         <input type="submit" class="btn btn-warning" value="Редактировать">
     </form>
     Текущие фото:<br>
+    <div th:unless="${images.isEmpty()}" class="d-grid gap-2 col-6 mx-auto" style="margin-top: 3%;">
+        <a class="btn btn-danger" role="button" th:href="'/product/'+${product.product_id}+'/delImg'">Удалить фото</a>
+    </div>
     <img th:each="im : ${images}" th:if="${im.getId()}!= null" th:src="'/images/'+${im.getId()}" height="120px"/>
 </div>
 </body>

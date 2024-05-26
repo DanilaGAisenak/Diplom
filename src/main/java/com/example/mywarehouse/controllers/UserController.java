@@ -42,9 +42,12 @@ public class UserController {
         return "log/registration";
     }
 
+
     @GetMapping("/")
-    public String securityUrl(Principal principal, Model model){
+    public String securityUrl(Principal principal, Model model,
+                              @RequestParam(name = "successMessage", required = false)boolean successMessage){
         model.addAttribute("user",userService.getUserByPrincipal(principal));
+        model.addAttribute("successMessage",successMessage);
         return "hello";
     }
 
@@ -55,9 +58,10 @@ public class UserController {
         return "profile";
     }
     @GetMapping("/user/profile/{id}/smth")
-    public String profileF(@PathVariable("id")Integer id, Model model){
+    public String profileF(@PathVariable("id")Integer id, Model model, Principal principal){
         User user = userRepository.findByUserId(id);
         model.addAttribute("user", user);
+        model.addAttribute("myUser",userService.getUserByPrincipal(principal).getUserId());
         //model.addAttribute("avatar",user.getAvatar());
         return "update/profile-upd";
     }
@@ -122,7 +126,8 @@ public class UserController {
     @PostMapping("/user/profile/{id}/change")
     public String change(@PathVariable("id")Integer id, String pas, Principal principal){
         User user = userService.getUserByPrincipal(principal);
-        user.setPassword(pas);
+        user.setPassword(passwordEncoder.encode(pas));
+        userRepository.save(user);
         return "redirect:/user/profile/{id}";
     }
     @PostMapping("/user/profile/{id}")
@@ -130,7 +135,7 @@ public class UserController {
                        /*@RequestParam MultipartFile file*/) throws IOException {
         User user = userRepository.findByUserId(id);
         userService.updateU(user,username,name);
-        return "redirect:/";
+        return "redirect:/user/profile/{id}";
     }
     @PostMapping("/")
     public String hi(Principal principal, Model model){

@@ -33,14 +33,24 @@ public class productController {
 
     @GetMapping("/products")
     public String products(@RequestParam(name = "name", required = false) String name, Principal principal, Model model) {
-        model.addAttribute("products", productServiceImpl.listProducts(name, principal));
+        User us =userService.getUserByPrincipal(principal);
+        if (us.getMasterId() == null)
+            model.addAttribute("products", productServiceImpl.listProducts(name, principal));
+        else if (us.getMasterId() != null){
+
+            model.addAttribute("products", productServiceImpl.listThem(name, principal));
+        }
         model.addAttribute("user",productServiceImpl.getUserByPrincipal(principal));
         return "products";
     }
 
     @GetMapping("/product/add")
     public String addProduct(Principal principal, Model model) {
-        User user = productServiceImpl.getUserByPrincipal(principal);
+        User user = new User();
+        if( userService.getUserByPrincipal(principal).getMasterId() != null ){
+            user = userRepository.findByUserId(userService.getUserByPrincipal(principal).getMasterId());
+        }
+        else user  =userService.getUserByPrincipal(principal);
         List<Warehouse> warehouses = warehouseRepository.findAllByUser(user);
         model.addAttribute("warehouse", warehouses);
         return "add/addProduct";
@@ -64,6 +74,11 @@ public class productController {
         model.addAttribute("warehouse", warehouses);
         return "update/updateProduct";
     }
+    @GetMapping("/product/{id}/delImg")
+    public String delImg(@PathVariable Integer id){
+        productServiceImpl.delImg(id);
+        return "redirect:/product/{id}/update";
+    }
 
     @GetMapping("{id}/wrongSize")
     public String warning(@PathVariable Integer id, Model model){
@@ -82,8 +97,13 @@ public class productController {
         if (file1.getSize() <= (1024*1024)){
             if (file2.getSize() <= (1024*1024)){
                 if (file3.getSize() <= (1024*1024)){
-                    Warehouse wh = warehouseRepository.findWarehouseByName(warehouse);
                     User user = warehouseService.getUserByPrincipal(principal);
+                    List<Warehouse> whs = warehouseRepository.findAllByUser(user);
+                    Warehouse wh = new Warehouse();
+                    for (Warehouse whouse: whs ) {
+                        if (whouse.getName().equals(warehouse)) wh = whouse;
+                    }
+//                     = warehouseRepository.findWarehouseByName(warehouse);
                     productServiceImpl.updateProduct(id, name, category, price, img_link, tax, production_price,
                             wh, /*user,*/ file1, file2, file3, user);
                     return "redirect:/products";

@@ -15,4 +15,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     //@Qery(value ="SELECT * from user  where user.masterId IS NOT NULL", nativeQuery = true)
     List<User> findAllByMasterIdIsNotNull();
     List<User> findAllByMasterId(Integer id);
+    List<User> findAllByUserId(Integer id);
 }
