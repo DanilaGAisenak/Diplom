@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .requestMatchers("/","/registration")
                 .permitAll().anyRequest().authenticated())
                 .formLogin((form)->form.loginPage("/login").permitAll().successForwardUrl("/")
-                        .failureForwardUrl("/login?error=true"))
+                        .failureUrl("/login?error=true"))
                 .logout((logout)->logout.permitAll().logoutSuccessUrl("/"));
         return http.build();
     }

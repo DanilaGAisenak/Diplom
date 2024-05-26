@@ -48,6 +48,8 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
     private LocalDateTime dateOfCreation;
+    @Column(name="masterId")
+    private Integer masterId;
 
     public boolean isUser(){
         if (getRoles().contains(Role.valueOf("ROLE_USER"))) return true;

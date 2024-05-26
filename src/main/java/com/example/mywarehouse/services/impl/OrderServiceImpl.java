@@ -35,7 +35,10 @@ public class OrderServiceImpl implements OrderService {
         Company companyTo = companyRepository.findCompanyByName(comToName);
         order.setCompanyTo(companyTo);
         User user = getUserByPrincipal(principal);
-        order.setUser(user);
+        if (user.getMasterId() != null) {
+            order.setUser(userRepository.findByMasterId(user.getMasterId()));
+        }
+        else order.setUser(user);
         orderRepository.save(order);
     }
 

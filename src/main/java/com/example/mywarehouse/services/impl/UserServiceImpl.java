@@ -8,6 +8,7 @@ import com.example.mywarehouse.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -29,6 +30,19 @@ public class UserServiceImpl implements UserService {
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(Role.ROLE_USER);
+        userRepository.save(user);
+        return true;
+    }
+
+    public boolean createMod(String name, String username, String password, Integer masterId){
+        User user = new User();
+        user.setUsername(username);
+        if (userRepository.findByUsername(user.getUsername()) != null) return false;
+        user.setName(name);
+        user.setActive(true);
+        user.setPassword(passwordEncoder.encode(password));
+        user.getRoles().add(Role.ROLE_USER);
+        user.setMasterId(masterId);
         userRepository.save(user);
         return true;
     }
@@ -92,5 +106,19 @@ public class UserServiceImpl implements UserService {
         image.setSize(file.getSize());
         image.setBytes(file.getBytes());
         return image;
+    }
+    public Integer countUserByRoleUser(){
+        List<User> users = userRepository.findAllByRoles(Role.ROLE_USER);
+        return users.size();
+    }
+
+    public Integer countUserByRoleAdmin(){
+        List<User> users = userRepository.findAllByRoles(Role.ROLE_ADMIN);
+        return users.size();
+    }
+
+    public Integer countUserByRoleModer(){
+        List<User> users = userRepository.findAllByMasterIdIsNotNull();
+        return users.size();
     }
 }

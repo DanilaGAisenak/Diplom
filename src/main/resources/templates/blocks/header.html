@@ -1,38 +1,54 @@
-<div th:fragment="header">
+
+<div th:fragment="header" >
+
 
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">MyWarehouse</a>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <div th:if="${user.username}!=null" class="unauthorized">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/products">Товары</a>
+          <div th:if="${user.username}!=null" class="dropdown">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" id="dropdownMyLink"
+                 data-bs-toggle="dropdown" >Управление</a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMyLink">
+                <li> <a class="dropdown-item" href="/warehouses">Склады</a> </li>
+                <li> <a class="dropdown-item" href="/companies">Компании</a> </li>
+                <li> <a class="dropdown-item" href="/products">Товары</a> </li>
+              </ul>
             </li>
           </div>
-          <div th:if="${user.username}!=null" class="unauthorized">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/companies">Компании</a>
+          <div th:if="${user.username}!=null" class="dropdown">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" id="dropdownSaleLink"
+                 data-bs-toggle="dropdown" >Продажи</a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownSaleLink">
+                <li> <a class="dropdown-item" href="/orders">Сделки</a> </li>
+              </ul>
             </li>
           </div>
-          <div th:if="${user.username}!=null" class="unauthorized">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/warehouses">Склады</a>
+          <div th:if="${user.username}!=null" class="dropdown">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" id="dropdownMangeLink"
+                 data-bs-toggle="dropdown">Администрирование</a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownManageLink">
+                <li> <a class="dropdown-item" th:href="'/user/profile/'+${user.userId}">Профиль</a> </li>
+                <li> <a class="dropdown-item" th:if="${user.isUser()}==false" href="/admin">Пользователи</a> </li>
+                <li> <a class="dropdown-item" th:if="${user.getMasterId()}==null"
+                    th:href="'/moderators'">Модераторы</a> </li>
+              </ul>
             </li>
           </div>
-          <div th:if="${user.username}!=null" class="unauthorized">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/orders">Сделки</a>
-            </li>
-          </div>
-          <div th:if="${user.username}!=null" class="unauthorized">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" th:href="'/user/profile/'+${user.userId}">Профиль</a>
-            </li>
-          </div>
-          <div th:if="${user.username}!=null"  class="unauthorized">
-            <li th:if="${user.isUser()}==false" class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/admin">Пользователи</a>
+          <div th:if="${user.username}!=null" class="dropdown">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                 aria-expanded="false">
+                Сервис
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="/displayBarGraph">Диаграмма сумм по сделкам</a></li>
+                <li><a class="dropdown-item"  href="/displayPieChart">Диаграмма количества пользователей</a></li>
+              </ul>
             </li>
           </div>
         </ul>

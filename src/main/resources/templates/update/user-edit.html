@@ -17,8 +17,8 @@
         Имя: <input type="text" class="form-control" name="name" th:value="${user.name}"><br>
         <input type="radio" class="form-check-input mt-0" name="role" id="role1" value="ROLE_USER" th:checked="${user.isUser()==true}">
         <label for="role1">User</label>
-        <input type="radio" class="form-check-input mt-0" name="role" id="role2" value="ROLE_ADMIN" th:checked="${user.isUser()==false}">
-        <label for="role2">Admin</label>
+        <input th:if="${user.masterId}==null" type="radio" class="form-check-input mt-0" name="role" id="role2" value="ROLE_ADMIN" th:checked="${user.isUser()==false}">
+        <label th:if="${user.masterId}==null" for="role2">Admin</label>
         <input type="hidden" th:value="${user.userId}">
         <input type="submit" class="btn btn-success" value="Сохранить">
     </form>

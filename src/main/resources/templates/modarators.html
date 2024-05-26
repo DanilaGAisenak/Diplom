@@ -11,6 +11,13 @@
 </head>
 <body>
 <header th:insert="~{blocks/header :: header}"></header>
+<div class="container" style="margin-top: 5%;">
+    <div class="d-flex flex-row mb-3 justify-content-around">
+        <div class="p-2" style="width: 50%; margin-left: -12%;">
+            <a href='/moderators/add' role="button" class="btn btn-success">Добавить Модератора</a>
+        </div>
+    </div>
+</div>
 <div class="d-flex flex-row mb-2 justify-content-around" style=" margin-top: 5%; ">
     <div class="p-2" th:each="us : ${users}" style="border: black 1px solid;
  border-radius: 5px; width: 48%;">
@@ -18,27 +25,25 @@
         <!--        <img th:src="${us.getAvatar()}"><br>-->
         <p class="text-center" th:text="'Логин: '+${us.username}"></p><br>
         <p class="text-center" th:text="'Имя: '+${us.name}"></p><br>
-        <p th:if="${us.isUser() and us.masterId == null}" class="text-center"  th:text="Пользователь"></p><br>
-        <p th:if="${us.isUser()}==false" class="text-center"  th:text="Администратор"></p><br>
         <p th:if="${us.masterId != null and us.isUser()}" class="text-center"  th:text="Модератор"></p><br>
         <p class="text-center" th:text="'Активный: '+${us.active}"></p><br>
         <div class="d-flex flex-row mb-3 justify-content-end" style="margin-left: -3%; width: 100%;">
             <div class="p-2">
-                <form th:action="'/user/ban/'+${us.userId}" method="post">
+                <form th:action="'/mod/ban/'+${us.userId}" method="post">
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <input type="submit" class="btn btn-outline-warning" value="Бан">
                     </div>
                 </form>
             </div>
             <div class="p-2">
-                <form th:action="'/user/update/'+${us.userId}" method="get">
+                <form th:action="'/mod/update/'+${us.userId}" method="get">
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <input type="submit" class="btn btn-outline-info" value="Редактировать">
                     </div>
                 </form>
             </div>
             <div class="p-2">
-                <form th:action="'/user/delete/'+${us.userId}" method="post">
+                <form th:action="'/mod/delete/'+${us.userId}" method="post">
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <input type="submit" class="btn btn-outline-danger" value="Удалить">
                     </div>

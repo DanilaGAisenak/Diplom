@@ -11,15 +11,22 @@
 </head>
 <body>
 <div class="container" style="width: 50%; margin-left: 25%; margin-top: 15%;">
-    <form action="/login" method="post">
+    <form th:action="@{/login}" method="post">
         Логин:<br>
         <input type="email" placeholder="Введите email" class="form-control" name="username" id="usn" required><br><br>
         Пароль:<br>
         <input type="password" name="password" class="form-control" id="pas"><br><br>
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                <span>Логин или пароль были введены неверно</span>
+            </div>
+        </div>
         <div class="d-grid gap-2 col-6 mx-auto">
             <input type="submit" class="btn btn-outline-info" value="Войти">
         </div>
+
     </form>
+
     <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 3%;">
         <a class="btn btn-primary" role="button" href="/registration">Зарегистрироваться</a>
     </div>
